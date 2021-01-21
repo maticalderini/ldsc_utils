@@ -11,7 +11,7 @@ def main(annot_dir, old_prefix, new_prefix='bin_'):
     annot_dir = Path(annot_dir)
     base_cols = ['CHR', 'BP', 'SNP', 'CM']
     
-    for filepath in annot_dir.glob(f'{old_prefix}*'):
+    for filepath in annot_dir.glob(f'{old_prefix}*.annot.gz'):
         print(f'> Currently processing {filepath.name}')
         
         print('\tLoading annot file')
@@ -28,7 +28,7 @@ def main(annot_dir, old_prefix, new_prefix='bin_'):
 #%%  Main
 if __name__ == '__main__':
     
-    annot_dir = r'C:\Users\USer1\Documents\Consulting\Mcgill\chronic_pain\data\raw\phase3\baseline'
+    annot_dir = '/home/mcb/users/mcalde15/chronic_pain/SOFTWARE/ldsc/data/phase3/baseline'
     old_prefix = 'baselineLD.'
     new_prefix = 'bin_'
 

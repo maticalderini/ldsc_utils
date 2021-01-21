@@ -122,7 +122,7 @@ def main(data_dir, results_prefix, save_dir):
     
 #%% Main
 if __name__ == '__main__':
-    data_dir = Path(r'C:\Users\USer1\Documents\Consulting\Mcgill\chronic_pain\data\proc\CP_ldsc_1_results')
+    data_dir = Path('/home/mcb/users/mcalde15/chronic_pain/data/CP_ldsc_1_results')
     results_prefix = 'CP'
     save_dir = data_dir/f'{results_prefix}_post_proc'
     
