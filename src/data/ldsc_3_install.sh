@@ -1,4 +1,5 @@
 #!bin/bash
+# Run via shh: dos2unix ldsc_3_bin_install.sh && ssh mcalde15@mcgill-cpu 'bash -s' < ldsc_3_bin_install.sh
 
 ##### Paths #####
 base_dir=~/chronic_pain/SOFTWARE
@@ -9,7 +10,7 @@ ldsc_dir=${base_dir}/ldsc
 ldsc_data_dir=${ldsc_dir}/data
 phase3_dir=${ldsc_data_dir}/phase3
 
-base_url=https://alkesgroup.broadinstitute.org/LDSCORE
+baseline_dir=${phase3_dir}/baseline
 
 ### Clone repo #####
 cd ${base_dir}
@@ -20,15 +21,16 @@ else
 fi
 
 # Create conda environment
-source ${conda_activate_path}
-conda env create --file ${ldsc_dir}/environment.yml
-echo 'ldsc conda environement created, activate with "conda activate ldsc"'
+# source ${conda_activate_path}
+# conda env create --file ${ldsc_dir}/environment.yml
+# echo 'ldsc conda environement created, activate with "conda activate ldsc"'
 
 ### Get sample data #####
 mkdir -p ${ldsc_data_dir}
 cd ${ldsc_data_dir}
 echo 'Downloading sample data'
 
+base_url=https://alkesgroup.broadinstitute.org/LDSCORE
 # Summary statistics
 echo 'Downloading summary statistics'
 sumstats=GIANT_BMI_Speliotes2010_publicrelease_HapMapCeuFreq.txt
@@ -54,8 +56,10 @@ if [ ! -d ${phase3_dir} ]; then
   cd ${phase3_dir}
 
   echo  '1. Downloading Baseline model LD scores'
-  bsln_3=1000G_Phase3_baselineLD_v2.2_ldscores.tgz
-  wget ${base_url}/${bsln_3} && mkdir baseline && tar -xvzf ${bsln_3} -C baseline/ && rm ${bsln_3}
+  bsln_3=1000G_Phase3_baseline_v1.2_ldscores.tgz
+  wget ${base_url}/${bsln_3} && tar -xvzf ${bsln_3} && rm ${bsln_3}
+  # bsln_3=1000G_Phase3_baselineLD_v2.2_ldscores.tgz
+  # wget ${base_url}/${bsln_3} && mkdir baseline && tar -xvzf ${bsln_3} -C baseline/ && rm ${bsln_3}
 
   # Regression weights
   echo  '2. Downloading regression weights'

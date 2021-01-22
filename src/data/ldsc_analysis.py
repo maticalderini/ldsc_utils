@@ -20,7 +20,7 @@ def man_plot(z=None, p=None, ax=None, **kwargs):
     assert z is not None or p is not None, 'One of z or p must be provided'
     
     
-    p = norm.sf(np.abs(z)*2) if p is None else p
+    p = norm.sf(np.abs(z))*2 if p is None else p
     log10p = -np.log10(p)
     
     ax.plot(log10p, '.', zorder=0)
@@ -74,14 +74,16 @@ def plot_ldsc_results(df, axes, label_col='Category', sig='q',
                          ('Proportion of h2', 'Enrichment', r'Significance ($log_{10}(p)$)', r'Significance ($log_{10}(q)$)')):
         ax.set(title=title, yticks=Y, yticklabels=[], ylim=ylim)
     
-    axes[-1].vlines(-np.log10(0.05), *ylim)
+    axes[-1].vlines(-np.log10(0.05), *ylim, ls='--')
     
     [lab.set_color(sig_color if i in df_sig.index.to_list() else nonsig_color) for i, lab in enumerate(axes[0].get_yticklabels())]
 
 
 
-def main(data_dir, results_prefix, save_dir):
+def main(data_dir, results_prefix, save_dir=None):
     # Preliminary
+    data_dir = Path(data_dir)
+    save_dir = data_dir/f'{results_prefix}_post_proc' if save_dir is None else Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
     
     # Summary stats
@@ -122,11 +124,9 @@ def main(data_dir, results_prefix, save_dir):
     
 #%% Main
 if __name__ == '__main__':
-    data_dir = Path('/home/mcb/users/mcalde15/chronic_pain/data/CP_ldsc_1_results')
+    data_dir = r'C:\Users\USer1\Documents\Consulting\Mcgill\chronic_pain\newest_results'
     results_prefix = 'CP'
-    save_dir = data_dir/f'{results_prefix}_post_proc'
     
-    main(data_dir, results_prefix, save_dir)
-
+    main(data_dir, results_prefix)
     
 
